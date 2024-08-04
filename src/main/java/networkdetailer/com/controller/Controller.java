@@ -1,6 +1,6 @@
 package networkdetailer.com.controller;
 
-import networkdetailer.com.model.data.DataCollector;
+import networkdetailer.com.model.DataCollector;
 
 public class Controller {
     public static String getIP() {
@@ -15,7 +15,15 @@ public class Controller {
         return DataCollector.getInstance().getMac();
     }
 
-    public static void exportToExcel() {
-        DataCollector.getInstance().saveToExcel();
+    public static int exportToExcel() {
+        return DataCollector.getInstance().saveToExcel();
+    }
+
+    public static boolean saveAsTxt() {
+        return DataCollector.getInstance().saveToTxt();
+    }
+
+    public static void refresh() {
+        DataCollector.getInstance().refresh();
     }
 }

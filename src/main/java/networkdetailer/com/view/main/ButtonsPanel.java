@@ -1,7 +1,7 @@
 package networkdetailer.com.view.main;
 
 import networkdetailer.com.controller.Controller;
-import networkdetailer.com.view.InformationPanel;
+import networkdetailer.com.view.Frame;
 
 import javax.swing.*;
 import java.awt.*;
@@ -19,9 +19,31 @@ public class ButtonsPanel extends JPanel {
         saveToExcel.setFocusPainted(false);
         refresh.setFocusPainted(false);
 
-        saveToExcel.addActionListener(e -> Controller.exportToExcel());
-        saveToTxt.addActionListener(e -> System.exit(0));
-        refresh.addActionListener(e -> System.exit(0));
+        saveToExcel.addActionListener(e -> {
+            /**
+             * int = 0 Error
+             * int = 1 success
+             * int = 2 hostname already exist
+             */
+            int outputValue = Controller.exportToExcel();
+            switch (outputValue) {
+                case 0 -> Frame.getInstance().informationPanelPlayer("Something went wrong.");
+                case 1 -> Frame.getInstance().informationPanelPlayer("Data has been exported to Excel.");
+                case 2 -> Frame.getInstance().informationPanelPlayer("Hostname already added. Details updated again.");
+            }
+        });
+        saveToTxt.addActionListener(e -> {
+            boolean didWork = Controller.saveAsTxt();
+            if (didWork) {
+                Frame.getInstance().informationPanelPlayer("Data has been saved as txt file.");
+            } else {
+                Frame.getInstance().informationPanelPlayer("Something went wrong.");
+            }
+        });
+        refresh.addActionListener(e -> {
+            Controller.refresh();
+            VariablesPanel.updateStaticData();
+        });
 
         add(saveToExcel);
         add(saveToTxt);

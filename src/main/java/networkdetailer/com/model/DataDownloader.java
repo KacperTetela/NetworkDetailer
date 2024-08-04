@@ -1,4 +1,4 @@
-package networkdetailer.com.model.data;
+package networkdetailer.com.model;
 
 import java.net.InetAddress;
 import java.net.SocketException;
@@ -7,16 +7,13 @@ import java.net.UnknownHostException;
 public class DataDownloader {
     public static String[] get() {
         try {
-            // Pobranie lokalnego adresu IP komputera
             InetAddress ip = InetAddress.getLocalHost();
 
-            // Pobranie nazwy hosta
             String hostName = ip.getHostName();
 
             MacGetter macGetter = new MacGetter();
             String macAddress = macGetter.get(ip);
 
-            // Wyświetlenie wyników
             System.out.println("Adres IP: " + ip.getHostAddress());
             System.out.println("Nazwa hosta: " + hostName);
             System.out.println("Adres MAC: " + macAddress);

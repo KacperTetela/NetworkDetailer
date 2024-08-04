@@ -8,6 +8,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class VariablesPanel extends JPanel {
+    private static VariablesPanel instance;
+
     JPanel variables = new JPanel();
     JPanel variablesValues = new JPanel();
     private JLabel hostname = new JLabel("Host Name:");
@@ -34,21 +36,29 @@ public class VariablesPanel extends JPanel {
         variablesValues.add(ipAddressValue);
         variablesValues.add(macValue);
 
-        Timer timer = new Timer(600, new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                updateData();
-            }
-        });
-        timer.setRepeats(false); // Ustawienie, aby Timer wykonał akcję tylko raz
-        timer.start(); // Uruchomienie Timera
-
-
+        instance = this;
+        updateData();
     }
 
     public void updateData() {
-        hostnameValue.setText(Controller.getHostname());
-        ipAddressValue.setText(Controller.getIP());
-        macValue.setText(Controller.getMAC());
+        hostnameValue.setText("");
+        ipAddressValue.setText("");
+        macValue.setText("");
+        Timer timer = new Timer(600, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                hostnameValue.setText(Controller.getHostname());
+                ipAddressValue.setText(Controller.getIP());
+                macValue.setText(Controller.getMAC());
+            }
+        });
+        timer.setRepeats(false);
+        timer.start();
+    }
+
+    public static void updateStaticData() {
+        if (instance != null) {
+            instance.updateData();
+        }
     }
 }

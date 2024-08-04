@@ -7,7 +7,7 @@ public class InformationPanel extends JPanel {
     private JPanel labelPanel = new JPanel();
     private JPanel buttonsPanel = new JPanel();
     private JLabel messageLabel;
-    private JButton exitButton = new JButton("Exit");
+    private JButton exitButton = new JButton("Close");
 
     public InformationPanel(String message) {
         this.messageLabel = new JLabel(message);
@@ -15,6 +15,7 @@ public class InformationPanel extends JPanel {
         setLayout(new GridLayout(2, 1, 0, 25));
         labelPanel.add(messageLabel);
         exitButton.addActionListener(e -> System.exit(0));
+        exitButton.setFocusPainted(false);
         buttonsPanel.add(exitButton);
         add(labelPanel);
         add(buttonsPanel);
