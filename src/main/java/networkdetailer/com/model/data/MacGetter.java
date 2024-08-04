@@ -1,13 +1,12 @@
-package networkdetailer.com.model;
+package networkdetailer.com.model.data;
 
 import java.net.InetAddress;
 import java.net.NetworkInterface;
 import java.net.SocketException;
 import java.net.UnknownHostException;
 
-public class MacAddressDownloader {
-    private String macAddress = "Adres MAC nie jest dostępny";
-    private NetworkInterface network;
+public class MacGetter {
+    private static NetworkInterface network;
 
     String get(InetAddress ip) throws UnknownHostException, SocketException{
         network = NetworkInterface.getByInetAddress(ip);
@@ -21,7 +20,7 @@ public class MacAddressDownloader {
                 for (int i = 0; i < macAddressBytes.length; i++) {
                     macAddressBuilder.append(String.format("%02X", macAddressBytes[i]));
                     if (i < macAddressBytes.length - 1) {
-                        macAddressBuilder.append("-");
+                        macAddressBuilder.append(":");
                     }
                 }
                 return macAddressBuilder.toString();

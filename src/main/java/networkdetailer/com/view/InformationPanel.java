@@ -11,8 +11,12 @@ public class InformationPanel extends JPanel {
 
     public InformationPanel(String message) {
         this.messageLabel = new JLabel(message);
-        setLayout(new GridLayout(2,1));
-        add(messageLabel);
-        add(exitButton);
+        setBorder(BorderFactory.createEmptyBorder(20, 0, 0, 0));
+        setLayout(new GridLayout(2, 1, 0, 25));
+        labelPanel.add(messageLabel);
+        exitButton.addActionListener(e -> System.exit(0));
+        buttonsPanel.add(exitButton);
+        add(labelPanel);
+        add(buttonsPanel);
     }
 }

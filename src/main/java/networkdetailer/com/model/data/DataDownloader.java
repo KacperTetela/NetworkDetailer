@@ -1,12 +1,11 @@
-package networkdetailer.com.model;
+package networkdetailer.com.model.data;
 
 import java.net.InetAddress;
-import java.net.NetworkInterface;
 import java.net.SocketException;
 import java.net.UnknownHostException;
 
-public class Connection {
-    public static void main(String[] args) {
+public class DataDownloader {
+    public static String[] get() {
         try {
             // Pobranie lokalnego adresu IP komputera
             InetAddress ip = InetAddress.getLocalHost();
@@ -14,16 +13,23 @@ public class Connection {
             // Pobranie nazwy hosta
             String hostName = ip.getHostName();
 
-            MacAddressDownloader macAddressDownloader = new MacAddressDownloader();
-            String macAddress = macAddressDownloader.get(ip);
+            MacGetter macGetter = new MacGetter();
+            String macAddress = macGetter.get(ip);
 
             // Wyświetlenie wyników
             System.out.println("Adres IP: " + ip.getHostAddress());
             System.out.println("Nazwa hosta: " + hostName);
             System.out.println("Adres MAC: " + macAddress);
 
+            String[] tempArr = new String[3];
+            tempArr[0] = ip.getHostAddress();
+            tempArr[1] = hostName;
+            tempArr[2] = macAddress;
+            return tempArr;
+
         } catch (UnknownHostException | SocketException e) {
             e.printStackTrace();
         }
+        throw new RuntimeException("IP data not initialized");
     }
 }

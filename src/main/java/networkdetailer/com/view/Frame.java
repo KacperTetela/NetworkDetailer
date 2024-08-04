@@ -1,5 +1,7 @@
 package networkdetailer.com.view;
 
+import networkdetailer.com.view.main.MainPanel;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -13,7 +15,7 @@ public class Frame extends JFrame {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLayout(new FlowLayout());
         setResizable(true);
-        setSize(330, 180);
+        setSize(400, 180);
         setVisible(true);
         //pack();
         setLocationRelativeTo(null);
@@ -28,5 +30,4 @@ public class Frame extends JFrame {
         informationPanel = new InformationPanel(message);
         add(informationPanel);
     }
-
 }

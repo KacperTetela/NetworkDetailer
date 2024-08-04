@@ -1,4 +1,4 @@
-package networkdetailer.com.view;
+package networkdetailer.com.view.main;
 
 import javax.swing.*;
 import java.awt.*;
