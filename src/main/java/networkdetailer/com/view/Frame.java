@@ -8,6 +8,7 @@ import java.awt.*;
 public class Frame extends JFrame {
     private static Frame instance;
 
+    private final ImageIcon icon = new ImageIcon(getClass().getResource("/search.png"));
     JPanel mainPanel = new MainPanel();
     JPanel informationPanel;
 
@@ -20,13 +21,12 @@ public class Frame extends JFrame {
 
     private Frame() {
         setTitle("Network Detailer");
-        //getContentPane().setBackground(Color.lightGray);
+        setIconImage(icon.getImage());
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLayout(new FlowLayout());
-        setResizable(true);
+        setResizable(false);
         setSize(400, 175);
         setVisible(true);
-        //pack();
         setLocationRelativeTo(null);
     }
 
