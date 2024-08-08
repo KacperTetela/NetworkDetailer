@@ -25,7 +25,7 @@ public class Frame extends JFrame {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLayout(new FlowLayout());
         setResizable(false);
-        setSize(400, 175);
+        setSize(400, 380);
         setVisible(true);
         setLocationRelativeTo(null);
     }

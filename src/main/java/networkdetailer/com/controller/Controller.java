@@ -1,10 +1,10 @@
 package networkdetailer.com.controller;
 
-import networkdetailer.com.model.DataCollector;
+import networkdetailer.com.model.data.DataCollector;
 
 public class Controller {
     public static String getIP() {
-        return DataCollector.getInstance().getiP();
+        return DataCollector.getInstance().getIp();
     }
 
     public static String getHostname() {
@@ -25,5 +25,37 @@ public class Controller {
 
     public static void refresh() {
         DataCollector.getInstance().refresh();
+    }
+
+    public static String getCpuName() {
+        return DataCollector.getInstance().getCpuName();
+    }
+
+    public static String getCpuGen() {
+        return String.valueOf(DataCollector.getInstance().getCpuGen());
+    }
+
+    public static String getCpuGhz() {
+        return String.valueOf(DataCollector.getInstance().getCpuGhz());
+    }
+
+    public static String getRamValue() {
+        return String.valueOf(DataCollector.getInstance().getRam());
+    }
+
+    public static String getDiskSpace() {
+        return String.valueOf(DataCollector.getInstance().getDiskSpace());
+    }
+
+    public static String getDiskType() {
+        return String.valueOf(DataCollector.getInstance().getDiskType());
+    }
+
+    public static String getWindowsRequirements() {
+        return String.valueOf(DataCollector.getInstance().isWindowsRequirements());
+    }
+
+    public static String getBios() {
+        return String.valueOf(DataCollector.getInstance().getBios());
     }
 }

@@ -1,10 +1,10 @@
-package networkdetailer.com.model;
+package networkdetailer.com.model.network;
 
 import java.net.InetAddress;
 import java.net.SocketException;
 import java.net.UnknownHostException;
 
-public class DataDownloader {
+public class NetworkDataDownloader {
     public static String[] get() {
         try {
             InetAddress ip = InetAddress.getLocalHost();

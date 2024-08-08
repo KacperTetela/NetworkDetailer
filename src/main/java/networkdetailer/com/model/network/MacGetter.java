@@ -1,4 +1,4 @@
-package networkdetailer.com.model;
+package networkdetailer.com.model.network;
 
 import java.net.InetAddress;
 import java.net.NetworkInterface;
