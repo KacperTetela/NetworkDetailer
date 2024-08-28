@@ -1,10 +1,9 @@
 package networkdetailer.com.model.hardware;
 
-public class RequirementsChecker {
-    private static final int MIN_CPU_GENERATION = 8; // Minimalna generacja CPU
+public class RequirementsCheckerService {
+    private static final int MIN_CPU_GENERATION = 8; // Minimum requirements
     private static final long MIN_RAM_GB = 4;
     private static final long MIN_DISK_SPACE_GB = 64;
-
 
     public static boolean check(SystemSpecsDownloader specs) {
         boolean cpuOk = specs.getCpuGeneration() >= MIN_CPU_GENERATION;

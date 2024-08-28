@@ -1,6 +1,6 @@
 package networkdetailer.com.model.data;
 
-import networkdetailer.com.model.hardware.RequirementsChecker;
+import networkdetailer.com.model.hardware.RequirementsCheckerService;
 import networkdetailer.com.model.hardware.SystemSpecsDownloader;
 import networkdetailer.com.model.network.NetworkDataDownloader;
 import org.apache.poi.ss.usermodel.Row;
@@ -52,7 +52,7 @@ public class DataCollector {
         this.ram = String.valueOf(systemSpecsDownloader.getRamGB());
         this.diskSpace = String.valueOf(systemSpecsDownloader.getDiskSpaceGB());
         this.diskType = String.valueOf(systemSpecsDownloader.getDiskType());
-        this.windowsRequirements = RequirementsChecker.check(systemSpecsDownloader);
+        this.windowsRequirements = RequirementsCheckerService.check(systemSpecsDownloader);
         this.bios = String.valueOf(systemSpecsDownloader.getBios());
     }
 
