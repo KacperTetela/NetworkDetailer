@@ -15,6 +15,7 @@ public class SystemSpecsDownloader {
     private String boardModel;
     private String bios;
     private String[] ghz;
+    private CPUInfo cpuInfo;
 
     public SystemSpecsDownloader() {
         SystemInfo systemInfo = new SystemInfo();
@@ -24,7 +25,7 @@ public class SystemSpecsDownloader {
         // Pobieranie informacji o CPU
         CentralProcessor processor = hal.getProcessor();
         cpuModel = processor.getProcessorIdentifier().getName();
-        cpuGeneration = CpuGenerationCheckerService.launch(cpuModel);
+        cpuGeneration = CPUInfoChecker.identify(cpuModel).generation();
         ghz = cpuModel.split("[ GHz]", 256);
         System.out.println(Arrays.toString(ghz));
         //for (Object element : ghz) {
