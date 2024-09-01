@@ -8,14 +8,13 @@ import java.util.Arrays;
 public class SystemSpecsDownloader {
     private String cpuModel;
     private int cpuGeneration;
-    private long ramGB;
-    private long diskSpaceGB;
+    private String[] ghz;
+    private int ramGB;
+    private int diskSpaceGB;
     private String diskType;
-    private String baseboard;
+    private String baseboardManufacturer;
     private String boardModel;
     private String bios;
-    private String[] ghz;
-    private CPUInfo cpuInfo;
 
     public SystemSpecsDownloader() {
         SystemInfo systemInfo = new SystemInfo();
@@ -28,31 +27,24 @@ public class SystemSpecsDownloader {
         cpuGeneration = CPUInfoChecker.identify(cpuModel).generation();
         ghz = cpuModel.split("[ GHz]", 256);
         System.out.println(Arrays.toString(ghz));
-        //for (Object element : ghz) {
-        //    if (element instanceof Float) {float floatValue = (float) element;}
-        //    else if (element instanceof String) {String stringvalue = (String) element;}
-        //};
 
         //Motherboard info
         Baseboard baseboard = computerSystem.getBaseboard();
         boardModel = baseboard.getModel();
-        this.baseboard = baseboard.getManufacturer();
+        this.baseboardManufacturer = baseboard.getManufacturer();
         bios = firmware.getName(); // "getVersion()???"
         // Pobieranie informacji o RAM
         GlobalMemory memory = hal.getMemory();
-        ramGB = memory.getTotal() / (1024 * 1024 * 1000); // Konwersja bajtów do GB
-
+        long totalRam = memory.getTotal() / (1024 * 1024 * 1000); // Konwersja bajtów do GB
+        ramGB = (int) totalRam;
 
         // Pobieranie informacji o dysku
         long totalDiskSpace = 0;
         String diskTypeDetected = "Unknown";
 
 
-
         for (HWDiskStore disk : hal.getDiskStores()) {
             totalDiskSpace += disk.getSize();
-
-
 
             if (diskTypeDetected.equals("Unknown") && disk.getModel().toLowerCase().contains("ssd")) {
                 diskTypeDetected = "SSD";
@@ -61,7 +53,8 @@ public class SystemSpecsDownloader {
             }
         }
 
-        this.diskSpaceGB = totalDiskSpace / (1024 * 1024 * 1024); // Konwersja bajtów do GB
+        totalDiskSpace = totalDiskSpace / (1024 * 1024 * 1024); // Konwersja bajtów do GB
+        diskSpaceGB = (int) totalDiskSpace;
         this.diskType = diskTypeDetected;
     }
 
@@ -89,8 +82,8 @@ public class SystemSpecsDownloader {
         return diskType;
     }
 
-    public String getBaseboard() {
-        return baseboard;
+    public String getBaseboardManufacturer() {
+        return baseboardManufacturer;
     }
 
     public String getBoardModel() {

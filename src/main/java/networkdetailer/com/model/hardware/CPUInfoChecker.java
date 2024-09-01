@@ -2,7 +2,7 @@ package networkdetailer.com.model.hardware;
 
 public class CPUInfoChecker {
 
-    public static CPUInfo identify(String cpuModel) {
+    public static CPUGeneration identify(String cpuModel) {
         CPUManufacturer manufacturer = CPUManufacturer.UNKNOWN;
         int generation = -1;
 
@@ -39,6 +39,6 @@ public class CPUInfoChecker {
             }
         }
 
-        return new CPUInfo(manufacturer, generation);
+        return new CPUGeneration(manufacturer, generation);
     }
 }
