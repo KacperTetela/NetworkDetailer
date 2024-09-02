@@ -25,8 +25,8 @@ public class DataCollector {
     private String ram;
     private String diskSpace;
     private String diskType;
-    private boolean windowsRequirements;
     private String bios;
+    private boolean windowsRequirements;
 
     private DataCollector() {
         refresh();
