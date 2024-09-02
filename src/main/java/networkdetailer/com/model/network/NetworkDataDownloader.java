@@ -49,9 +49,9 @@ public class NetworkDataDownloader {
 
             String macAddress = MacGetter.get(ip);
 
-            System.out.println("Adres IP: " + ip.getHostAddress());
-            System.out.println("Nazwa hosta: " + hostName);
-            System.out.println("Adres MAC: " + macAddress);
+            System.out.println("IP Address: " + ip.getHostAddress());
+            System.out.println("Hostname: " + hostName);
+            System.out.println("MAC Address: " + macAddress);
 
             String[] tempArr = new String[3];
             tempArr[0] = ip.getHostAddress();

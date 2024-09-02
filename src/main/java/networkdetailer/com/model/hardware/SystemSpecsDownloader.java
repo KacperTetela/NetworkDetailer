@@ -25,6 +25,8 @@ public class SystemSpecsDownloader {
         CentralProcessor processor = hal.getProcessor();
         cpuModel = processor.getProcessorIdentifier().getName();
         cpuGeneration = CPUInfoChecker.identify(cpuModel).generation();
+
+        // Refactoring cpuModel na tablice elementow
         ghz = cpuModel.split("[ GHz]", 256);
         System.out.println(Arrays.toString(ghz));
 

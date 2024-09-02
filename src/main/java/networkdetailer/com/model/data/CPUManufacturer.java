@@ -1,8 +1,8 @@
-package networkdetailer.com.model.hardware;
+package networkdetailer.com.model.data;
 
 public enum CPUManufacturer {
     INTEL,
     AMD,
     APPLE,
-    UNKNOWN;
+    UNKNOWN
 }
