@@ -1,8 +1,8 @@
 package networkdetailer.com.model.data;
 
 import networkdetailer.com.model.hardware.RequirementsCheckerService;
-import networkdetailer.com.model.hardware.SystemSpecsDownloader;
-import networkdetailer.com.model.network.NetworkDataDownloader;
+import networkdetailer.com.model.hardware.HardwareDownloader;
+import networkdetailer.com.model.network.NetworkDownloader;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
@@ -15,9 +15,14 @@ import java.nio.file.Paths;
 
 public class DataCollector {
     private static DataCollector instance;
-    private String iP;
-    private String hostName;
-    private String mac;
+
+    private CPUData cpuData;
+    private MOBOData moboData;
+    private MemoryData memoryData;
+    private NetworkData networkData;
+
+    private NetworkDownloader networkDownloader;
+    private HardwareDownloader hardwareDownloader;
 
     private String cpuName;
     private String cpuGen;
@@ -29,6 +34,8 @@ public class DataCollector {
     private boolean windowsRequirements;
 
     private DataCollector() {
+        networkDownloader = new NetworkDownloader();
+        hardwareDownloader = new HardwareDownloader();
         refresh();
     }
 
@@ -40,20 +47,17 @@ public class DataCollector {
     }
 
     public synchronized void refresh() {
-        String[] dataArray = NetworkDataDownloader.get();
-        this.iP = dataArray[0];
-        this.hostName = dataArray[1];
-        this.mac = dataArray[2];
+        networkData = networkDownloader.get();
+        hardwareDownloader.initialise();
 
-        SystemSpecsDownloader systemSpecsDownloader = new SystemSpecsDownloader();
-        this.cpuName = systemSpecsDownloader.getCpuModel();
-        this.cpuGen = String.valueOf(systemSpecsDownloader.getCpuGeneration());
-        this.cpuGhz = String.valueOf(systemSpecsDownloader.getCpuGhz());
-        this.ram = String.valueOf(systemSpecsDownloader.getRamGB());
-        this.diskSpace = String.valueOf(systemSpecsDownloader.getDiskSpaceGB());
-        this.diskType = String.valueOf(systemSpecsDownloader.getDiskType());
-        this.windowsRequirements = RequirementsCheckerService.check(systemSpecsDownloader);
-        this.bios = String.valueOf(systemSpecsDownloader.getBios());
+        this.cpuName = hardwareDownloader.getCpuModel();
+        this.cpuGen = String.valueOf(hardwareDownloader.getCpuGeneration());
+        this.cpuGhz = String.valueOf(hardwareDownloader.getCpuGhz());
+        this.ram = String.valueOf(hardwareDownloader.getRamGB());
+        this.diskSpace = String.valueOf(hardwareDownloader.getDiskSpaceGB());
+        this.diskType = String.valueOf(hardwareDownloader.getDiskType());
+        this.windowsRequirements = RequirementsCheckerService.check(hardwareDownloader);
+        this.bios = String.valueOf(hardwareDownloader.getBios());
     }
 
     public int saveToExcel() {
@@ -169,7 +173,7 @@ public class DataCollector {
     public boolean saveToTxt() {
         try {
             Path jarPath = Paths.get(DataCollector.class.getProtectionDomain().getCodeSource().getLocation().toURI()).getParent();
-            String filePath = jarPath.resolve(hostName + ".txt").toString();
+            String filePath = jarPath.resolve(networkData.hostname() + ".txt").toString();
 
             File file = new File(filePath);
 
@@ -195,15 +199,15 @@ public class DataCollector {
     }
 
     public String getIp() {
-        return iP;
+        return networkData.ip();
     }
 
     public String getHostName() {
-        return hostName;
+        return networkData.hostname();
     }
 
     public String getMac() {
-        return mac;
+        return networkData.mac();
     }
 
     public String getCpuName() {

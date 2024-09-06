@@ -11,11 +11,11 @@ public class MacGetter {
     static String get(InetAddress ip) throws UnknownHostException, SocketException{
         network = NetworkInterface.getByInetAddress(ip);
         if (network != null) {
-            // Pobranie adresu MAC
+            // Getting MAC address
             byte[] macAddressBytes = network.getHardwareAddress();
 
             if (macAddressBytes != null) {
-                // Konwersja adresu MAC do postaci czytelnej (np. 00-1A-2B-3C-4D-5E)
+                // Converting the MAC address to a readable form (e.g. 00-1A-2B-3C-4D-5E)
                 StringBuilder macAddressBuilder = new StringBuilder();
                 for (int i = 0; i < macAddressBytes.length; i++) {
                     macAddressBuilder.append(String.format("%02X", macAddressBytes[i]));
