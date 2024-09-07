@@ -19,7 +19,6 @@ public class HardwareDownloader {
     private String[] cpuModelToRefactor;
     private int ramGB;
     private int diskSpaceGB;
-    private String diskType;
     private String baseboardManufacturer;
     private String boardModel;
     private String bios;
@@ -39,7 +38,7 @@ public class HardwareDownloader {
         cpuModelToRefactor = cpuModel.split("[ GHz]", 256);
         System.out.println(Arrays.toString(cpuModelToRefactor));
 
-        return new CPUData(CPUInfoChecker.identify(cpuModel), cpuModelToRefactor[2], Double.valueOf(cpuModelToRefactor[5]));
+        return new CPUData(CPUGenerationGetter.identify(cpuModel), cpuModelToRefactor[2], Double.valueOf(cpuModelToRefactor[5]));
     }
 
     public MemoryData getMemoryData() {
@@ -76,40 +75,4 @@ public class HardwareDownloader {
     private int conversionBtoGB(long total) { // B to GB conversion
         return (int) (total / (1024 * 1024 * 1000));
     }
-
-/*    public double getCpuGhz() {
-        return Double.valueOf(cpuModelToRefactor[5]);
-    }
-
-    public String getCpuModel() {
-        return String.valueOf(cpuModelToRefactor[2]);
-    }
-
-    public int getCpuGeneration() {
-        return cpuData.generation().generation();
-    }
-
-    public long getRamGB() {
-        return ramGB;
-    }
-
-    public long getDiskSpaceGB() {
-        return diskSpaceGB;
-    }
-
-    public String getDiskType() {
-        return diskType;
-    }
-
-    public String getBaseboardManufacturer() {
-        return baseboardManufacturer;
-    }
-
-    public String getBoardModel() {
-        return boardModel;
-    }
-
-    public String getBios() {
-        return bios;
-    }*/
 }

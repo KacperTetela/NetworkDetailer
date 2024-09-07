@@ -3,7 +3,7 @@ package networkdetailer.com.model.hardware;
 import networkdetailer.com.model.data.CPUGeneration;
 import networkdetailer.com.model.data.CPUManufacturer;
 
-public class CPUInfoChecker {
+public class CPUGenerationGetter {
 
     public static CPUGeneration identify(String cpuModel) {
         CPUManufacturer manufacturer = CPUManufacturer.UNKNOWN;
