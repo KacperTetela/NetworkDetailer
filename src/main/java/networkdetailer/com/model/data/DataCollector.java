@@ -1,6 +1,6 @@
 package networkdetailer.com.model.data;
 
-import networkdetailer.com.model.hardware.RequirementsCheckerService;
+import networkdetailer.com.model.hardware.RequirementsChecker;
 import networkdetailer.com.model.hardware.HardwareDownloader;
 import networkdetailer.com.model.network.NetworkDownloader;
 import org.apache.poi.ss.usermodel.Row;
@@ -24,15 +24,6 @@ public class DataCollector {
     private NetworkDownloader networkDownloader;
     private HardwareDownloader hardwareDownloader;
 
-    private String cpuName;
-    private String cpuGen;
-    private String cpuGhz;
-    private String ram;
-    private String diskSpace;
-    private String diskType;
-    private String bios;
-    private boolean windowsRequirements;
-
     private DataCollector() {
         networkDownloader = new NetworkDownloader();
         hardwareDownloader = new HardwareDownloader();
@@ -49,15 +40,9 @@ public class DataCollector {
     public synchronized void refresh() {
         networkData = networkDownloader.get();
         hardwareDownloader.initialise();
-
-        this.cpuName = hardwareDownloader.getCpuModel();
-        this.cpuGen = String.valueOf(hardwareDownloader.getCpuGeneration());
-        this.cpuGhz = String.valueOf(hardwareDownloader.getCpuGhz());
-        this.ram = String.valueOf(hardwareDownloader.getRamGB());
-        this.diskSpace = String.valueOf(hardwareDownloader.getDiskSpaceGB());
-        this.diskType = String.valueOf(hardwareDownloader.getDiskType());
-        this.windowsRequirements = RequirementsCheckerService.check(hardwareDownloader);
-        this.bios = String.valueOf(hardwareDownloader.getBios());
+        cpuData = hardwareDownloader.getCpuData();
+        moboData = hardwareDownloader.getMoboData();
+        memoryData = hardwareDownloader.getMemoryData();
     }
 
     public int saveToExcel() {
@@ -211,34 +196,34 @@ public class DataCollector {
     }
 
     public String getCpuName() {
-        return cpuName;
+        return cpuData.name();
     }
 
     public String getCpuGen() {
-        return cpuGen;
+        return new String(String.valueOf(cpuData.generation().generation()));
     }
 
     public String getCpuGhz() {
-        return cpuGhz;
+        return new String(String.valueOf(cpuData.ghz()));
     }
 
     public String getRam() {
-        return ram;
+        return new String(String.valueOf(memoryData.ramGB()));
     }
 
     public String getDiskSpace() {
-        return diskSpace;
+        return new String(String.valueOf(memoryData.diskSpaceGB()));
     }
 
     public String getDiskType() {
-        return diskType;
+        return new String(String.valueOf(memoryData.diskType()));
     }
 
     public boolean isWindowsRequirements() {
-        return windowsRequirements;
+        return RequirementsChecker.check(cpuData, memoryData);
     }
 
     public String getBios() {
-        return bios;
+        return new String(String.valueOf(moboData.bios()));
     }
 }
