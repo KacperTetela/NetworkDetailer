@@ -40,7 +40,7 @@ public class HardwareDownloader {
         if (cpuModelToRefactor[0].contains(CPUManufacturer.INTEL.toString())) {
             return new CPUData(CPUGenerationGetter.identify(cpuModel), cpuModelToRefactor[2], Double.valueOf(cpuModelToRefactor[5]));
         } else {
-            return new CPUData(CPUGenerationGetter.identify(cpuModel), "AMD", 0.0);
+            return new CPUData(CPUGenerationGetter.identify(cpuModel), cpuModelToRefactor[1], 0.0);
         }
 
 
