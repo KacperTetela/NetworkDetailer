@@ -1,12 +1,11 @@
 package networkdetailer.com.model.hardware;
 
-import networkdetailer.com.model.data.CPUData;
-import networkdetailer.com.model.data.DiskType;
-import networkdetailer.com.model.data.MOBOData;
-import networkdetailer.com.model.data.MemoryData;
+import networkdetailer.com.model.data.*;
 import oshi.SystemInfo;
 import oshi.hardware.*;
 
+import java.lang.management.ManagementFactory;
+import java.lang.management.OperatingSystemMXBean;
 import java.util.Arrays;
 
 public class HardwareDownloader {
@@ -38,7 +37,14 @@ public class HardwareDownloader {
         cpuModelToRefactor = cpuModel.split("[ GHz]", 256);
         System.out.println(Arrays.toString(cpuModelToRefactor));
 
-        return new CPUData(CPUGenerationGetter.identify(cpuModel), cpuModelToRefactor[2], Double.valueOf(cpuModelToRefactor[5]));
+        if (cpuModelToRefactor[0].contains(CPUManufacturer.INTEL.toString())) {
+            return new CPUData(CPUGenerationGetter.identify(cpuModel), cpuModelToRefactor[2], Double.valueOf(cpuModelToRefactor[5]));
+        } else {
+            return new CPUData(CPUGenerationGetter.identify(cpuModel), "AMD", 0.0);
+        }
+
+
+        //return new CPUData(CPUGenerationGetter.identify(cpuModel), cpuModelToRefactor[2], Double.valueOf(cpuModelToRefactor[5]));
     }
 
     public MemoryData getMemoryData() {
