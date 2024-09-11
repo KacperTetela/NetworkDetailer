@@ -115,7 +115,7 @@ public class DataCollector {
                 workbook = new XSSFWorkbook();
                 sheet = workbook.createSheet("Network Details");
                 Row headerRow = sheet.createRow(0);
-                headerRow.createCell(0).setCellValue("Host Name");
+                headerRow.createCell(0).setCellValue("Hostname");
                 headerRow.createCell(1).setCellValue("IP Address");
                 headerRow.createCell(2).setCellValue("Physical Address");
                 headerRow.createCell(3).setCellValue("CPU Name");
@@ -163,9 +163,9 @@ public class DataCollector {
             File file = new File(filePath);
 
             FileWriter writer = new FileWriter(file);
+            writer.write("Hostname: " + networkData.hostname() + System.lineSeparator());
             writer.write("IP Address: " + networkData.ip() + System.lineSeparator());
-            writer.write("Host Name: " + networkData.hostname() + System.lineSeparator());
-            writer.write("MAC Address: " + networkData.mac() + System.lineSeparator());
+            writer.write("Physical Address: " + networkData.mac() + System.lineSeparator());
             writer.write("CPU Name: " + cpuData.name() + System.lineSeparator());
             writer.write("CPU Generation: " + cpuData.generation().generation() + System.lineSeparator());
             writer.write("CPU GHz: " + cpuData.ghz() + System.lineSeparator());
