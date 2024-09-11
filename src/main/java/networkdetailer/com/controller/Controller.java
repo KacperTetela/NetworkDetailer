@@ -36,12 +36,9 @@ public class Controller {
     }
 
     public static String getCpuGhz() {
-        System.out.println(DataCollector.getInstance().getCpuGhz());
-        System.out.println(DataCollector.getInstance().getCpuGhz());
-        System.out.println(DataCollector.getInstance().getCpuGhz());
-        if (DataCollector.getInstance().getCpuGhz().equals("0"))
+        if (Double.valueOf(DataCollector.getInstance().getCpuGhz()) == 0.0)
             return "UNKNOWN";
-        return String.valueOf(DataCollector.getInstance().getCpuGhz());
+        return DataCollector.getInstance().getCpuGhz();
     }
 
     public static String getRamValue() {
