@@ -15,9 +15,10 @@ public class VariablesPanel extends JPanel {
     private JLabel hostname = new JLabel("Host Name:");
     private JLabel ipAddress = new JLabel("IP Address:");
     private JLabel mac = new JLabel("Physical Address:");
+    private JLabel cpuManufacturer = new JLabel("CPU Manufacturer:");
     private JLabel cpuName = new JLabel("CPU Name:");
     private JLabel cpuGen = new JLabel("CPU Gen:");
-    private JLabel cpuGhz = new JLabel("GHz:");
+    private JLabel cpuGhz = new JLabel("CPU Max GHz:");
     private JLabel ram = new JLabel("(GB)RAM:");
     private JLabel diskSpace = new JLabel("(GB)Disk Space:");
     private JLabel diskType = new JLabel("Disk Type:");
@@ -27,6 +28,7 @@ public class VariablesPanel extends JPanel {
     private JLabel hostnameValue = new JLabel();
     private JLabel ipAddressValue = new JLabel();
     private JLabel macValue = new JLabel();
+    private JLabel cpuManufacturerValue = new JLabel();
     private JLabel cpuNameValue = new JLabel();
     private JLabel cpuGenValue = new JLabel();
     private JLabel cpuGhzValue = new JLabel();
@@ -39,10 +41,11 @@ public class VariablesPanel extends JPanel {
     public VariablesPanel() {
         setLayout(new FlowLayout(FlowLayout.LEFT));
 
-        variables.setLayout(new GridLayout(11, 1, 10, 10));
+        variables.setLayout(new GridLayout(12, 1, 10, 10));
         variables.add(hostname);
         variables.add(ipAddress);
         variables.add(mac);
+        variables.add(cpuManufacturer);
         variables.add(cpuName);
         variables.add(cpuGen);
         variables.add(cpuGhz);
@@ -52,7 +55,7 @@ public class VariablesPanel extends JPanel {
         variables.add(windowsRequirements);
         variables.add(bios);
 
-        variablesValues.setLayout(new GridLayout(11, 1, 10, 10));
+        variablesValues.setLayout(new GridLayout(12, 1, 10, 10));
 
         add(variables);
         add(variablesValues);
@@ -60,6 +63,7 @@ public class VariablesPanel extends JPanel {
         variablesValues.add(hostnameValue);
         variablesValues.add(ipAddressValue);
         variablesValues.add(macValue);
+        variablesValues.add(cpuManufacturerValue);
         variablesValues.add(cpuNameValue);
         variablesValues.add(cpuGenValue);
         variablesValues.add(cpuGhzValue);
@@ -77,6 +81,7 @@ public class VariablesPanel extends JPanel {
         hostnameValue.setText("");
         ipAddressValue.setText("");
         macValue.setText("");
+        cpuManufacturerValue.setText("");
         cpuNameValue.setText("");
         cpuGenValue.setText("");
         cpuGhzValue.setText("");
@@ -92,6 +97,7 @@ public class VariablesPanel extends JPanel {
                 hostnameValue.setText(Controller.getHostname());
                 ipAddressValue.setText(Controller.getIP());
                 macValue.setText(Controller.getMAC());
+                cpuManufacturerValue.setText(Controller.getCpuManufacturer());
                 cpuNameValue.setText(Controller.getCpuName());
                 cpuGenValue.setText(Controller.getCpuGen());
                 cpuGhzValue.setText(Controller.getCpuGhz());

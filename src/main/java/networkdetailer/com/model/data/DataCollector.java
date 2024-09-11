@@ -77,18 +77,18 @@ public class DataCollector {
                 int rowCount = sheet.getLastRowNum();
                 for (int i = 1; i <= rowCount; i++) {
                     Row row = sheet.getRow(i);
-                    if (row != null && row.getCell(0) != null && row.getCell(0).getStringCellValue().equals(getHostName())) {
+                    if (row != null && row.getCell(0) != null && row.getCell(0).getStringCellValue().equals(networkData.hostname())) {
                         // Update existing row
-                        row.getCell(0).setCellValue(getHostName());
-                        row.getCell(1).setCellValue(getIp());
-                        row.getCell(2).setCellValue(getMac());
-                        row.getCell(3).setCellValue(getCpuName());
-                        row.getCell(4).setCellValue(getCpuGen());
-                        row.getCell(5).setCellValue(getCpuGhz());
-                        row.getCell(6).setCellValue(getRam());
-                        row.getCell(7).setCellValue(getDiskSpace());
-                        row.getCell(8).setCellValue(getDiskType());
-                        row.getCell(9).setCellValue(getBios());
+                        row.getCell(0).setCellValue(networkData.hostname());
+                        row.getCell(1).setCellValue(networkData.ip());
+                        row.getCell(2).setCellValue(networkData.mac());
+                        row.getCell(3).setCellValue(cpuData.name());
+                        row.getCell(4).setCellValue(cpuData.generation().generation());
+                        row.getCell(5).setCellValue(cpuData.ghz());
+                        row.getCell(6).setCellValue(memoryData.ramGB());
+                        row.getCell(7).setCellValue(memoryData.diskSpaceGB());
+                        row.getCell(8).setCellValue(memoryData.diskType().toString());
+                        row.getCell(9).setCellValue(moboData.bios());
                         row.getCell(10).setCellValue(isWindowsRequirements() ? "Yes" : "No");
                         hostnameExists = true;
                         break;
@@ -98,16 +98,16 @@ public class DataCollector {
                 // Add new row if hostname does not exist
                 if (!hostnameExists) {
                     Row newRow = sheet.createRow(sheet.getLastRowNum() + 1);
-                    newRow.createCell(0).setCellValue(getHostName());
-                    newRow.createCell(1).setCellValue(getIp());
-                    newRow.createCell(2).setCellValue(getMac());
-                    newRow.createCell(3).setCellValue(getCpuName());
-                    newRow.createCell(4).setCellValue(getCpuGen());
-                    newRow.createCell(5).setCellValue(getCpuGhz());
-                    newRow.createCell(6).setCellValue(getRam());
-                    newRow.createCell(7).setCellValue(getDiskSpace());
-                    newRow.createCell(8).setCellValue(getDiskType());
-                    newRow.createCell(9).setCellValue(getBios());
+                    newRow.createCell(0).setCellValue(networkData.hostname());
+                    newRow.createCell(1).setCellValue(networkData.ip());
+                    newRow.createCell(2).setCellValue(networkData.mac());
+                    newRow.createCell(3).setCellValue(cpuData.name());
+                    newRow.createCell(4).setCellValue(cpuData.generation().generation());
+                    newRow.createCell(5).setCellValue(cpuData.ghz());
+                    newRow.createCell(6).setCellValue(memoryData.ramGB());
+                    newRow.createCell(7).setCellValue(memoryData.diskSpaceGB());
+                    newRow.createCell(8).setCellValue(memoryData.diskType().toString());
+                    newRow.createCell(9).setCellValue(moboData.bios());
                     newRow.createCell(10).setCellValue(isWindowsRequirements() ? "Yes" : "No");
                 }
             } else {
@@ -129,16 +129,16 @@ public class DataCollector {
 
                 // Add new row
                 Row newRow = sheet.createRow(1);
-                newRow.createCell(0).setCellValue(getHostName());
-                newRow.createCell(1).setCellValue(getIp());
-                newRow.createCell(2).setCellValue(getMac());
-                newRow.createCell(3).setCellValue(getCpuName());
-                newRow.createCell(4).setCellValue(getCpuGen());
-                newRow.createCell(5).setCellValue(getCpuGhz());
-                newRow.createCell(6).setCellValue(getRam());
-                newRow.createCell(7).setCellValue(getDiskSpace());
-                newRow.createCell(8).setCellValue(getDiskType());
-                newRow.createCell(9).setCellValue(getBios());
+                newRow.createCell(0).setCellValue(networkData.hostname());
+                newRow.createCell(1).setCellValue(networkData.ip());
+                newRow.createCell(2).setCellValue(networkData.mac());
+                newRow.createCell(3).setCellValue(cpuData.name());
+                newRow.createCell(4).setCellValue(cpuData.generation().generation());
+                newRow.createCell(5).setCellValue(cpuData.ghz());
+                newRow.createCell(6).setCellValue(memoryData.ramGB());
+                newRow.createCell(7).setCellValue(memoryData.diskSpaceGB());
+                newRow.createCell(8).setCellValue(memoryData.diskType().toString());
+                newRow.createCell(9).setCellValue(moboData.bios());
                 newRow.createCell(10).setCellValue(isWindowsRequirements() ? "Yes" : "No");
             }
 
@@ -163,16 +163,16 @@ public class DataCollector {
             File file = new File(filePath);
 
             FileWriter writer = new FileWriter(file);
-            writer.write("IP Address: " + getIp() + System.lineSeparator());
-            writer.write("Host Name: " + getHostName() + System.lineSeparator());
-            writer.write("MAC Address: " + getMac() + System.lineSeparator());
-            writer.write("CPU Name: " + getCpuName() + System.lineSeparator());
-            writer.write("CPU Generation: " + getCpuGen() + System.lineSeparator());
-            writer.write("CPU GHz: " + getCpuGhz() + System.lineSeparator());
-            writer.write("RAM (GB): " + getRam() + System.lineSeparator());
-            writer.write("Disk Space (GB): " + getDiskSpace() + System.lineSeparator());
-            writer.write("Disk Type: " + getDiskType() + System.lineSeparator());
-            writer.write("BIOS Version: " + getBios() + System.lineSeparator());
+            writer.write("IP Address: " + networkData.ip() + System.lineSeparator());
+            writer.write("Host Name: " + networkData.hostname() + System.lineSeparator());
+            writer.write("MAC Address: " + networkData.mac() + System.lineSeparator());
+            writer.write("CPU Name: " + cpuData.name() + System.lineSeparator());
+            writer.write("CPU Generation: " + cpuData.generation().generation() + System.lineSeparator());
+            writer.write("CPU GHz: " + cpuData.ghz() + System.lineSeparator());
+            writer.write("RAM (GB): " + memoryData.ramGB() + System.lineSeparator());
+            writer.write("Disk Space (GB): " + memoryData.diskSpaceGB() + System.lineSeparator());
+            writer.write("Disk Type: " + memoryData.diskType().toString() + System.lineSeparator());
+            writer.write("BIOS Version: " + moboData.bios() + System.lineSeparator());
             writer.write("Windows Requirements: " + (isWindowsRequirements() ? "Yes" : "No") + System.lineSeparator());
             writer.close();
 
@@ -183,47 +183,23 @@ public class DataCollector {
         }
     }
 
-    public String getIp() {
-        return networkData.ip();
-    }
-
-    public String getHostName() {
-        return networkData.hostname();
-    }
-
-    public String getMac() {
-        return networkData.mac();
-    }
-
-    public String getCpuName() {
-        return cpuData.name();
-    }
-
-    public String getCpuGen() {
-        return new String(String.valueOf(cpuData.generation().generation()));
-    }
-
-    public String getCpuGhz() {
-        return new String(String.valueOf(cpuData.ghz()));
-    }
-
-    public String getRam() {
-        return new String(String.valueOf(memoryData.ramGB()));
-    }
-
-    public String getDiskSpace() {
-        return new String(String.valueOf(memoryData.diskSpaceGB()));
-    }
-
-    public String getDiskType() {
-        return new String(String.valueOf(memoryData.diskType()));
-    }
-
     public boolean isWindowsRequirements() {
         return RequirementsChecker.check(cpuData, memoryData);
     }
 
-    public String getBios() {
-        return new String(String.valueOf(moboData.bios()));
+    public CPUData getCpuData() {
+        return cpuData;
+    }
+
+    public MOBOData getMoboData() {
+        return moboData;
+    }
+
+    public MemoryData getMemoryData() {
+        return memoryData;
+    }
+
+    public NetworkData getNetworkData() {
+        return networkData;
     }
 }
