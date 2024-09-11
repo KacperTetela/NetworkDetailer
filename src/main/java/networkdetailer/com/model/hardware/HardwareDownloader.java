@@ -4,8 +4,6 @@ import networkdetailer.com.model.data.*;
 import oshi.SystemInfo;
 import oshi.hardware.*;
 
-import java.lang.management.ManagementFactory;
-import java.lang.management.OperatingSystemMXBean;
 import java.util.Arrays;
 
 public class HardwareDownloader {
@@ -37,14 +35,14 @@ public class HardwareDownloader {
         cpuModelToRefactor = cpuModel.split("[ GHz]", 256);
         System.out.println(Arrays.toString(cpuModelToRefactor));
 
-        if (cpuModelToRefactor[0].contains(CPUManufacturer.INTEL.toString())) {
+        if (cpuModelToRefactor[0].toUpperCase().contains(CPUManufacturer.INTEL.toString())) {
             return new CPUData(CPUGenerationGetter.identify(cpuModel), cpuModelToRefactor[2], Double.valueOf(cpuModelToRefactor[5]));
-        } else {
-            return new CPUData(CPUGenerationGetter.identify(cpuModel), cpuModelToRefactor[1], 0.0);
+        } else if (cpuModelToRefactor[0].toUpperCase().contains(CPUManufacturer.AMD.toString())) {
+            return new CPUData(CPUGenerationGetter.identify(cpuModel), cpuModelToRefactor[2], Double.valueOf(cpuModelToRefactor[5]));
+        } else if (cpuModelToRefactor[0].toUpperCase().contains(CPUManufacturer.APPLE.toString())) {
+            return new CPUData(CPUGenerationGetter.identify(cpuModel), cpuModelToRefactor[2], Double.valueOf(cpuModelToRefactor[5]));
         }
-
-
-        //return new CPUData(CPUGenerationGetter.identify(cpuModel), cpuModelToRefactor[2], Double.valueOf(cpuModelToRefactor[5]));
+        return new CPUData(CPUGenerationGetter.identify(cpuModel), cpuModelToRefactor[2], 0.0);
     }
 
     public MemoryData getMemoryData() {
