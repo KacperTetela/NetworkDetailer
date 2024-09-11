@@ -86,7 +86,7 @@ public class VariablesPanel extends JPanel {
         windowsRequirementsValue.setText("");
         biosValue.setText("");
 
-        Timer timer = new Timer(600, new ActionListener() {
+        Timer timer = new Timer(300, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 hostnameValue.setText(Controller.getHostname());
