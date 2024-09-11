@@ -40,7 +40,7 @@ public class HardwareDownloader {
         } else if (cpuModelToRefactor[0].toUpperCase().contains(CPUManufacturer.AMD.toString())) {
             return new CPUData(CPUGenerationGetter.identify(cpuModel), cpuModelToRefactor[2], Double.valueOf(cpuModelToRefactor[5]));
         } else if (cpuModelToRefactor[0].toUpperCase().contains(CPUManufacturer.APPLE.toString())) {
-            return new CPUData(CPUGenerationGetter.identify(cpuModel), cpuModelToRefactor[2], 0.0);
+            return new CPUData(CPUGenerationGetter.identify(cpuModel), cpuModelToRefactor[1], 0.0);
         }
         return new CPUData(CPUGenerationGetter.identify(cpuModel), cpuModelToRefactor[2], 0.0);
     }
