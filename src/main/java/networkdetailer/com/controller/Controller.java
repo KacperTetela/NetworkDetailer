@@ -36,7 +36,10 @@ public class Controller {
     }
 
     public static String getCpuGhz() {
-        if (DataCollector.getInstance().getCpuGhz().equals(0.0))
+        System.out.println(DataCollector.getInstance().getCpuGhz());
+        System.out.println(DataCollector.getInstance().getCpuGhz());
+        System.out.println(DataCollector.getInstance().getCpuGhz());
+        if (DataCollector.getInstance().getCpuGhz().equals("0"))
             return "UNKNOWN";
         return String.valueOf(DataCollector.getInstance().getCpuGhz());
     }
