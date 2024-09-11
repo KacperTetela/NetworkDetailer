@@ -4,15 +4,15 @@ import networkdetailer.com.model.data.DataCollector;
 
 public class Controller {
     public static String getIP() {
-        return DataCollector.getInstance().getIp();
+        return DataCollector.getInstance().getNetworkData().ip();
     }
 
     public static String getHostname() {
-        return DataCollector.getInstance().getHostName();
+        return DataCollector.getInstance().getNetworkData().hostname();
     }
 
     public static String getMAC() {
-        return DataCollector.getInstance().getMac();
+        return DataCollector.getInstance().getNetworkData().mac();
     }
 
     public static int exportToExcel() {
@@ -28,29 +28,29 @@ public class Controller {
     }
 
     public static String getCpuName() {
-        return DataCollector.getInstance().getCpuName();
+        return DataCollector.getInstance().getCpuData().name();
     }
 
     public static String getCpuGen() {
-        return String.valueOf(DataCollector.getInstance().getCpuGen());
+        return String.valueOf(DataCollector.getInstance().getCpuData().generation().generation());
     }
 
     public static String getCpuGhz() {
-        if (Double.valueOf(DataCollector.getInstance().getCpuGhz()) == 0.0)
+        if (Double.valueOf(DataCollector.getInstance().getCpuData().ghz()) == 0.0)
             return "UNKNOWN";
-        return DataCollector.getInstance().getCpuGhz();
+        return String.valueOf(DataCollector.getInstance().getCpuData().ghz());
     }
 
     public static String getRamValue() {
-        return String.valueOf(DataCollector.getInstance().getRam());
+        return String.valueOf(DataCollector.getInstance().getMemoryData().ramGB());
     }
 
     public static String getDiskSpace() {
-        return String.valueOf(DataCollector.getInstance().getDiskSpace());
+        return String.valueOf(DataCollector.getInstance().getMemoryData().diskSpaceGB());
     }
 
     public static String getDiskType() {
-        return String.valueOf(DataCollector.getInstance().getDiskType());
+        return String.valueOf(DataCollector.getInstance().getMemoryData().diskType());
     }
 
     public static String getWindowsRequirements() {
@@ -58,6 +58,10 @@ public class Controller {
     }
 
     public static String getBios() {
-        return String.valueOf(DataCollector.getInstance().getBios());
+        return String.valueOf(DataCollector.getInstance().getMoboData().bios());
+    }
+
+    public static String getCpuManufacturer() {
+        return String.valueOf(DataCollector.getInstance().getCpuData().generation().cpuManufacturer());
     }
 }
