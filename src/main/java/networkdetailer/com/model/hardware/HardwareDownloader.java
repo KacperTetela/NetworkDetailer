@@ -31,7 +31,6 @@ public class HardwareDownloader {
         CentralProcessor processor = hal.getProcessor();
         cpuModel = processor.getProcessorIdentifier().getName();
 
-        // Refactoring cpuModel na tablice elementow
         cpuModelToRefactor = cpuModel.split("[ GHz]", 256);
         System.out.println(Arrays.toString(cpuModelToRefactor));
 
