@@ -2,6 +2,8 @@ package networkdetailer.com.model.data;
 
 import networkdetailer.com.model.hardware.RequirementsChecker;
 import networkdetailer.com.model.hardware.HardwareDownloader;
+import networkdetailer.com.model.network.IPGetter;
+import networkdetailer.com.model.network.MacGetter;
 import networkdetailer.com.model.network.NetworkDownloader;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
@@ -25,7 +27,7 @@ public class DataCollector {
     private HardwareDownloader hardwareDownloader;
 
     private DataCollector() {
-        networkDownloader = new NetworkDownloader();
+        networkDownloader = new NetworkDownloader(new IPGetter(), new MacGetter());
         hardwareDownloader = new HardwareDownloader();
         refresh();
     }
@@ -37,7 +39,7 @@ public class DataCollector {
         return instance;
     }
 
-    public synchronized void refresh() {
+    public synchronized void refresh() { //todo funkcjonalne testy tego
         networkData = networkDownloader.get();
         hardwareDownloader.initialise();
         cpuData = hardwareDownloader.getCpuData();

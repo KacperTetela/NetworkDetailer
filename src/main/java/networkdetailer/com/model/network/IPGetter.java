@@ -6,7 +6,7 @@ import java.net.SocketException;
 import java.util.Enumeration;
 
 public class IPGetter {
-    public static InetAddress get() throws SocketException {
+    InetAddress get() throws SocketException {
         InetAddress ip = null;
         Enumeration<NetworkInterface> interfaces = NetworkInterface.getNetworkInterfaces();
 

@@ -8,17 +8,28 @@ import java.net.UnknownHostException;
 
 
 public class NetworkDownloader {
-    private InetAddress ip;
-    private String ipHostAddress;
-    private String macAddress;
-    private String hostName;
+    private IPGetter ipGetter;
+    private MacGetter macGetter;
+
+    public NetworkDownloader(IPGetter ipGetter, MacGetter macGetter) {
+        this.ipGetter = ipGetter;
+        this.macGetter = macGetter;
+    }
 
     public NetworkData get() {
+
+        InetAddress ip;
+        String ipHostAddress;
+        String macAddress;
+        String hostName;
+
         try {
-            ip = IPGetter.get();
+            ip = ipGetter.get();
             ipHostAddress = ip.getHostAddress();
-            macAddress = MacGetter.get(ip);
+            macAddress = macGetter.get(ip);
             hostName = ip.getHostName();
+
+            System.out.println(hostName);
 
             // Remove the suffix (e.g. ".home") from the hostname
             if (hostName.contains(".")) {
@@ -38,4 +49,6 @@ public class NetworkDownloader {
         }
         throw new RuntimeException("IP data not initialized");
     }
+
+
 }

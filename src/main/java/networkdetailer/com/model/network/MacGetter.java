@@ -6,9 +6,9 @@ import java.net.SocketException;
 import java.net.UnknownHostException;
 
 public class MacGetter {
-    private static NetworkInterface network;
+    private NetworkInterface network;
 
-    static String get(InetAddress ip) throws UnknownHostException, SocketException{
+    String get(InetAddress ip) throws UnknownHostException, SocketException{
         network = NetworkInterface.getByInetAddress(ip);
         if (network != null) {
             // Getting MAC address
